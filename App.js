@@ -1,20 +1,25 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import HomeScreen from './screens/HomeScreen';
+import AddPropertyScreen from './screens/AddPropertyScreen';
+import HomeSc from './screens/HomeSc'; // Assuming HomeSc is correctly named and imported
+import { PropertiesProvider } from './PropertiesProvider/PropertiesContext'; // Make sure the import path is correct
 
-export default function App() {
+const Stack = createNativeStackNavigator();
+
+function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <PropertiesProvider>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Home">
+          <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Properties for Sale' }} />
+          <Stack.Screen name="HomeSc" component={HomeSc} options={{ title: 'Property Details' }} />
+          <Stack.Screen name="AddProperty" component={AddPropertyScreen} options={{ title: 'Add Your Property' }} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </PropertiesProvider>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
